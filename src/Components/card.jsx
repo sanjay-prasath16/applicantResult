@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 
 const Card = ({ index, candidate, showGradient, onGradientComplete, liylaHelp }) => {
   const [isGradientVisible, setIsGradientVisible] = useState(false);
+  const [showRecommendation, setShowRecommendation] = useState(false);
   const gradientRef = useRef(null);
   const rotationRef = useRef(0);
 
@@ -10,6 +11,8 @@ const Card = ({ index, candidate, showGradient, onGradientComplete, liylaHelp })
     let animationFrame;
     if (showGradient) {
       setIsGradientVisible(true);
+      setShowRecommendation(false);
+
       const rotateGradient = () => {
         if (gradientRef.current) {
           rotationRef.current = (rotationRef.current - 1) % 360;
@@ -24,6 +27,7 @@ const Card = ({ index, candidate, showGradient, onGradientComplete, liylaHelp })
 
       const timer = setTimeout(() => {
         setIsGradientVisible(false);
+        setShowRecommendation(true);
         if (onGradientComplete) {
           onGradientComplete();
         }
@@ -73,12 +77,13 @@ const Card = ({ index, candidate, showGradient, onGradientComplete, liylaHelp })
   };
 
   return (
-    <div 
-      className={`w-full md:w-[45%] lg:w-[30%] border border-white bg-white rounded-xl p-[21px] shadow-lg mb-10 ${index === 2 ? "mx-5" : "mx-3"} ${index !== 0 && index !== 3 ? "ml-10" : ""} relative overflow-hidden`}
+    <div
+      className={`w-full md:w-[45%] lg:w-[30%] border border-white bg-white rounded-xl p-[21px] shadow-lg mb-10 ${
+        index === 2 ? "mx-5" : "mx-3"
+      } ${index !== 0 && index !== 3 ? "ml-10" : ""} relative overflow-hidden`}
       style={{ direction: "ltr" }}
       onMouseEnter={(e) =>
-        (e.currentTarget.style.boxShadow =
-          "0px 4px 3px rgba(0, 114, 220, 0.3)")
+        (e.currentTarget.style.boxShadow = "0px 4px 3px rgba(0, 114, 220, 0.3)")
       }
       onMouseLeave={(e) => (e.currentTarget.style.boxShadow = "none")}
     >
@@ -95,7 +100,7 @@ const Card = ({ index, candidate, showGradient, onGradientComplete, liylaHelp })
           <div className="absolute inset-0 bg-gray-800/70 backdrop-blur-sm" />
         </div>
       )}
-      <div className={`relative z-10 ${isGradientVisible ? 'text-gray-800' : 'text-black'}`}>
+      <div className={`relative z-10 ${isGradientVisible ? "text-gray-800" : "text-black"}`}>
         <div className="flex">
           <img
             src={candidate.src}
@@ -108,13 +113,13 @@ const Card = ({ index, candidate, showGradient, onGradientComplete, liylaHelp })
               <p className="text-[#A5A5A7]">
                 {candidate.title} at {candidate.location}
               </p>
-              <p className="text-[#A5A5A7]">
-                  {candidate.experience} years experience
-              </p>
-              {liylaHelp && (
+              <p className="text-[#A5A5A7]">{candidate.experience} years experience</p>
+              {showRecommendation && liylaHelp && (
                 <div>
                   {[1, 2, 3].includes(candidate.rank) && (
-                    <div className="text-xs font-semibold text-[#5C9AFF] flex justify-center items-center rounded-[4px] border border-[#5C9AFF] p-1 mb-1">LIYLA RECOMMENDED</div>
+                    <div className="text-xs font-semibold text-[#5C9AFF] flex justify-center items-center rounded-[4px] border border-[#5C9AFF] p-1 mb-1">
+                      LIYLA RECOMMENDED
+                    </div>
                   )}
                 </div>
               )}
@@ -130,9 +135,7 @@ const Card = ({ index, candidate, showGradient, onGradientComplete, liylaHelp })
             {candidate.rounds.map((round, roundIndex) => (
               <div key={roundIndex} className="relative text-center">
                 <div className="flex justify-center ml-[10px] mb-[23px]">
-                  <p className="mt-2 text-[10px] text-[#6F6F6F]">
-                    {round.name}
-                  </p>
+                  <p className="mt-2 text-[10px] text-[#6F6F6F]">{round.name}</p>
                 </div>
                 <div className="relative w-[63px] h-[61px] mx-auto">
                   {generateDots(round.progress).map((style, index) => (
@@ -146,9 +149,7 @@ const Card = ({ index, candidate, showGradient, onGradientComplete, liylaHelp })
                     />
                   ))}
                   <div className="absolute inset-0 flex items-center justify-center ml-[10px] mt-[15px]">
-                    <p className="text-[#6F6F6F] font-semibold">
-                      {round.progress}%
-                    </p>
+                    <p className="text-[#6F6F6F] font-semibold">{round.progress}%</p>
                   </div>
                 </div>
                 <p className="text-[#6F6F6F] font-semibold mt-[23px] ml-[10px]">{round.description}</p>
@@ -164,7 +165,9 @@ const Card = ({ index, candidate, showGradient, onGradientComplete, liylaHelp })
           </div>
         </div>
         <div className="flex justify-center mt-[9px]">
-          <p className="font-medium text-[#0072DC] border border-[#0072DC] rounded-full h-[28px] w-[86px] flex items-center justify-center cursor-pointer">View more</p>
+          <p className="font-medium text-[#0072DC] border border-[#0072DC] rounded-full h-[28px] w-[86px] flex items-center justify-center cursor-pointer">
+            View more
+          </p>
         </div>
       </div>
     </div>
