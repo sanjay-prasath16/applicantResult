@@ -1,9 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import Logo from "./assets/aspireit logo.png";
-import Notification from "./assets/bell-notification.svg";
-import { IoSearch } from "react-icons/io5";
-import Profile from "./assets/Ellipse.png";
-import Arrow from "./assets/downArrow.svg";
+import Liyla from './assets/Type=Layila.svg';
 import Company from "./assets/company logo.png";
 import Location from "./assets/location.svg";
 import Briefcase from "./assets/briefcase.svg";
@@ -19,9 +15,11 @@ import hamburgerBar from "./assets/hamburgerBar.png";
 import Star from "./assets/star.svg";
 import Send from './assets/whiteSend.svg';
 import Card from "./Components/card";
+import Navbar from './Components/Navbar';
 import { SlArrowLeft } from "react-icons/sl";
 import { SlArrowRight } from "react-icons/sl";
 import ReactPaginate from "react-paginate";
+import { useConversation } from '@11labs/react';
 
 const ApplicantResult = () => {
   const candidates = [
@@ -180,42 +178,28 @@ const ApplicantResult = () => {
     setShowGradient(false);
   }, []);
 
+  const [liylaStatus, setLiylaStatus] = useState(false);
+  const conversation = useConversation();
+
+  const toggleLiylaStatus = async () => {
+    setLiylaStatus((prev) => !prev);
+    if(!liylaStatus) {
+      const conversationId = await conversation.startSession({
+        agentId: import.meta.env.VITE_APP_ELEVENLABS,
+      });
+      console.log("11 labs activated: ", conversationId);
+    } else {
+      await conversation.endSession();
+    }
+  };
+
   return (
     <div className="bg-[#F7F7F7] h-screen flex flex-col">
       {/* Navbar */}
-      <div className="h-[9%] flex bg-white py-4 px-12 justify-between mb-[20px]">
-        <div className="items-center flex">
-          <img src={Logo} alt="Logo" className="w-[130px] h-[46px]" />
-        </div>
-        <div className="flex items-center">
-          <div className="relative mr-[29px]">
-            <input
-              type="text"
-              placeholder="Search"
-              className="bg-[#F4F4F4] border border-[#EBEBEB] w-[581px] h-[46px] rounded-full placeholder:text-black text-[14px] font-medium pl-4 pr-10 outline-none"
-            />
-            <div className="absolute top-1/2 right-3 transform -translate-y-1/2 border border-[#EBEBEB] p-1 rounded-full cursor-pointer">
-              <IoSearch className="text-[#353535] w-[22px] h-[22px]" />
-            </div>
-          </div>
-          <p className="border border-[#EBEBEB] bg-[#F4F4F4] rounded-full pl-3 pr-1 mr-[29px] flex h-[46px] justify-center items-center">
-            <span className="pr-6 text-[14px]">3 New Notifications</span>
-            <img
-              src={Notification}
-              alt="Notification"
-              className="mx-2 w-6 h-6"
-            />
-          </p>
-          <img src={Profile} alt="Profile" className="h-11 w-11" />
-          <div className="text-[#353535] text-[18px] font-medium leading-[18px] ml-2 mr-1 mb-1">
-            Neha Yadav
-          </div>
-          <img src={Arrow} alt="Arrow" className="cursor-pointer" />
-        </div>
-      </div>
+      <Navbar assistant={Liyla} onLiylaActivate={toggleLiylaStatus} />
 
       {/* Company Description */}
-      <div className="h-[45%] px-12 relative">
+      <div className="h-[45%] px-12 relative mt-[2%]">
         <div className="relative h-[40%]">
           <div className="h-[70%] w-full bg-gradient-to-b from-[#FEC4CB] via-[#F4C8EF] to-[#F4C8EF] rounded-[20px]"></div>
           <img
@@ -231,7 +215,7 @@ const ApplicantResult = () => {
             </p>
             <p className="mt-3 mr-3 flex">
               <img src={Location} alt="Location" className="w-5 h-5 mt-1" />
-              <span className="ml-0.5 text-[#979797] text-[14px]">
+              <span className="ml-0.5 text-[#979797] text-[14px] font-medium">
                 Bangalore
               </span>
             </p>
@@ -240,7 +224,7 @@ const ApplicantResult = () => {
             </div>
             <p className="mt-3 mr-3 flex">
               <img src={Briefcase} alt="Briefcase" className="w-5 h-5 mt-1" />
-              <span className="ml-0.5 text-[#979797] text-[14px]">
+              <span className="ml-0.5 text-[#979797] text-[14px] font-medium">
                 3 - 5 Yrs
               </span>
             </p>
