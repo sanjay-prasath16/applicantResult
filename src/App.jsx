@@ -183,7 +183,7 @@ const ApplicantResult = () => {
   return (
     <div className="bg-[#F7F7F7] h-screen flex flex-col">
       {/* Navbar */}
-      <div className="h-[10%] flex bg-white py-4 px-12 justify-between mb-[20px]">
+      <div className="h-[9%] flex bg-white py-4 px-12 justify-between mb-[20px]">
         <div className="items-center flex">
           <img src={Logo} alt="Logo" className="w-[130px] h-[46px]" />
         </div>
@@ -217,14 +217,14 @@ const ApplicantResult = () => {
       {/* Company Description */}
       <div className="h-[45%] px-12 relative">
         <div className="relative h-[40%]">
-          <div className="h-full w-full bg-gradient-to-b from-[#FEC4CB] via-[#F4C8EF] to-[#F4C8EF] rounded-[20px]"></div>
+          <div className="h-[70%] w-full bg-gradient-to-b from-[#FEC4CB] via-[#F4C8EF] to-[#F4C8EF] rounded-[20px]"></div>
           <img
             src={Company}
             alt="Company Logo"
-            className="absolute top-[100%] left-0 transform -translate-y-1/2"
+            className="absolute top-[70%] left-0 transform -translate-y-1/2"
           />
         </div>
-        <div className="bg-white -mt-5 pb-6 rounded-[32px] rounded-t-none h-[50%] pt-[65px] pl-[40px] justify-center flex flex-col">
+        <div className="bg-white -mt-16 pb-6 rounded-[32px] rounded-t-none h-[50%] pt-[65px] pl-[40px] justify-center flex flex-col">
           <div className="flex">
             <p className="font-bold text-[24px] text-[#353535] mr-3">
               Senior UI/UX Designer
@@ -302,7 +302,7 @@ const ApplicantResult = () => {
 
       {/* Card Section */}
       <div
-        className="h-[30%] overflow-y-auto ml-[30px]"
+        className="h-[50%] overflow-y-auto ml-[30px] -mt-[3%]"
         style={{ direction: "rtl" }}
       >
         <div className="h-full flex flex-wrap" style={{ direction: "ltr" }}>
@@ -320,7 +320,7 @@ const ApplicantResult = () => {
       </div>
 
       {/* Pagination */}
-      <div className="h-[15%] flex items-center">
+      <div className="h-[10%] flex items-center">
         <div className="ml-10 w-[50px]">
           <img src={hamburgerBar} alt="Hamburger menu" />
         </div>
