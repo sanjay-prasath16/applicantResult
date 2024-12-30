@@ -109,11 +109,11 @@ const Card = ({ index, candidate, showGradient, onGradientComplete, liylaHelp })
           />
           <div className="ml-4 flex justify-between w-full">
             <div>
-              <p className="text-[17px] font-medium">{candidate.name}</p>
-              <p className="text-[#A5A5A7]">
+              <p className="text-[16px] font-bold">{candidate.name}</p>
+              <p className="text-[#6F6F6F]">
                 {candidate.title} at {candidate.location}
               </p>
-              <p className="text-[#A5A5A7]">{candidate.experience} years experience</p>
+              <p className="text-[#6F6F6F]">{candidate.experience} years experience</p>
               {showRecommendation && liylaHelp && (
                 <div>
                   {[1, 2, 3].includes(candidate.rank) && (
@@ -124,7 +124,7 @@ const Card = ({ index, candidate, showGradient, onGradientComplete, liylaHelp })
                 </div>
               )}
             </div>
-            <div className="h-full w-[60px] bg-[#282828] rounded-[12px] flex flex-col items-center justify-center">
+            <div className={`w-[60px] bg-[#282828] rounded-[12px] flex flex-col items-center justify-center ${showRecommendation && liylaHelp && [1, 2, 3].includes(candidate.rank) ? "h-[72%]" : "h-full"}`}>
               <p className="text-white">RANK</p>
               <p className="text-white text-[20px] font-bold">{candidate.rank}</p>
             </div>
@@ -157,15 +157,17 @@ const Card = ({ index, candidate, showGradient, onGradientComplete, liylaHelp })
             ))}
             <div className="flex flex-col mt-2">
               <p className="text-[#6F6F6F] mb-[20%] ml-[20%]">Total</p>
-              <p className="text-[40px] text-[#24DF3A] font-semibold mb-[25%]">
+              <p className="text-[40px] text-[#24DF3A] font-semibold">
                 {calculateAverageProgress(candidate.rounds)}%
               </p>
-              <p className="font-semibold text-[#6F6F6F]">Cumulative score</p>
+              <div className="justify-end flex items-end h-full">
+                <p className="font-semibold text-[#6F6F6F]">Cumulative score</p>
+              </div>
             </div>
           </div>
         </div>
         <div className="flex justify-center mt-[9px]">
-          <p className="font-medium text-[#0072DC] border border-[#0072DC] rounded-full h-[28px] w-[86px] flex items-center justify-center cursor-pointer">
+          <p className="font-semibold text-[#0072DC] border-2 border-[#0072DC] rounded-full h-[28px] w-[86px] flex items-center justify-center cursor-pointer">
             View more
           </p>
         </div>
